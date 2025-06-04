@@ -129,3 +129,12 @@ order by count(actorid) desc, title
 
 -- 15. List all the people who have worked with 'Art Garfunkel'
 
+SELECT actor.name
+FROM actor
+    JOIN casting ON actor.id = actorid
+    JOIN movie ON movieid=movie.id
+WHERE actor.name <> "Art Garfunkel"
+    AND movieid IN(SELECT movieid 
+                     FROM casting
+                          JOIN actor ON (actor.id=actorid)
+                     WHERE name = "Art Garfunkel")
